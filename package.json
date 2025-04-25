@@ -20,7 +20,7 @@
     "@umijs/plugins": "^4.4.10",
     "ahooks": "^3.8.4",
     "antd-mobile": "^5.39.0",
-    "postcss-px-to-vi ewport": "^1.1.1",
+    "postcss-px-to-viewport": "^1.1.1",
     "typescript": "^5.0.3"
   }
 }
