@@ -1,0 +1,31 @@
+.navs {
+  ul {
+    padding: 0;
+    list-style: none;
+    display: flex;
+  }
+  li {
+    margin-right: 1em;
+  }
+}
+
+.layout {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    flex: none;
+    border-bottom: solid 1px #eee;
+  }
+
+  .content {
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  .footer {
+    flex: none;
+    border-top: solid 1px #eee;
+  }
+}
