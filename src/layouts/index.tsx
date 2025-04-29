@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { NavBar, TabBar } from 'antd-mobile';
 import { useNavigate, Outlet, useLocation } from 'umi';
 import {
@@ -8,15 +9,18 @@ import {
 } from 'antd-mobile-icons';
 import styles from './index.less';
 import { useModel } from 'umi';
+import useRouteTitle from '@/hooks/useRouteTitle';
 
 export default function Layout() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { title } = useModel('useGlobal');
+  const { title: globalTitle, updateTitle } = useModel('useGlobal');
+  // 获取当前路由的标题
+  const routeTitle = useRouteTitle(globalTitle);
 
   const tabs = [
     {
-      key: '/', 
+      key: '/',
       title: '首页',
       icon: <AppOutline />,
     },
@@ -37,10 +41,16 @@ export default function Layout() {
     },
   ];
 
+  // 使用 useEffect 在路由变化时更新全局标题
+  useEffect(() => {
+    // 更新全局标题，这样其他组件也可以访问到当前路由标题
+    updateTitle(routeTitle);
+  }, [location.pathname, routeTitle, updateTitle]);
+
   return (
     <div className={styles.layout}>
       <div className={styles.header}>
-        <NavBar onBack={() => navigate(-1)}>{title}</NavBar>
+        <NavBar onBack={() => navigate(-1)}>{routeTitle}</NavBar>
       </div>
 
       <div className={styles.content}>

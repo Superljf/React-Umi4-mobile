@@ -53,7 +53,7 @@ request.interceptors.request.use((url, options) => {
 
   let testToken = "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyX3R5cGUiOiIwIiwidXNlcl9pZCI6MSwibG9naW5fdHlwZSI6IkxpbmtXZUNoYXRBUEkiLCJ1c2VyX25hbWUiOiJhZG1pbiIsInVzZXJfa2V5IjoiZTM0OTM1NmMtOGZiZi00ZmI1LTlkODktNzJjODI1ZjU5OTI5IiwiY29ycF9uYW1lIjoi5b-r5LmQ5pif6L6wIiwiY29ycF9pZCI6Ind3M2RmZTc4NTk5Y2UyN2M4ZSJ9.mhZHhxB45JL8TDrOPLLjk63vbQBMFZPM3BnYL4WeiscHDr9dM65rGnC54gHE9n4VSy74uwWwrUtRuheP4zklWA"
   headers.Authorization = `Bearer ${testToken}`
-  // if (token) {
+  // if (token) { 
   //   headers.Authorization = `Bearer ${token}`;
   // }
 
@@ -85,7 +85,6 @@ request.interceptors.response.use(async (response) => {
     content: res.message || '请求失败',
     position: 'bottom',
   });
-
   if (res.code === 401) {
     localStorage.removeItem('token');
     // 可加跳转：window.location.href = '/login';

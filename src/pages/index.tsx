@@ -3,9 +3,10 @@ import { Button, Space, Toast, DotLoading, ErrorBlock } from 'antd-mobile';
 import { useRequest } from 'ahooks';
 import { getHello, getLoginTeacherInfo, getSurveyList } from '@/services/api';
 import styles from './index.less';
-import { useModel } from 'umi';
+import { useModel, useNavigate } from 'umi';
 
 const HomePage: React.FC = () => {
+  const navigate = useNavigate();
   const { title, userInfo, updateTitle, fetchUserInfo } = useModel('useGlobal');
 
   const {
@@ -25,7 +26,7 @@ const HomePage: React.FC = () => {
       console.error('调查列表获取失败:', error);
     },
   });
-    console.log("🚀 ~ surveyList:", surveyList)
+  console.log('🚀 ~ surveyList:', surveyList);
 
   // 调用方式
   useEffect(() => {
@@ -99,6 +100,12 @@ const HomePage: React.FC = () => {
             }}
           >
             刷新所有数据
+          </Button>
+          <Button
+            color='default'
+            onClick={() => navigate('/volunteer')}
+          >
+            进入志愿填报模拟页面
           </Button>
         </Space>
         {renderSurveyList()}
