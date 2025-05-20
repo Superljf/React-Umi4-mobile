@@ -49,15 +49,15 @@ export default function Layout() {
 
   return (
     <div className={styles.layout}>
-      <div className={styles.header}>
+      {/* <div className={styles.header}>
         <NavBar onBack={() => navigate(-1)}>{routeTitle}</NavBar>
-      </div>
+      </div> */}
 
       <div className={styles.content}>
         <Outlet />
       </div>
 
-      <div className={styles.footer}>
+      {/* <div className={styles.footer}>
         <TabBar
           activeKey={location.pathname}
           onChange={(value) => navigate(value)}
@@ -66,7 +66,7 @@ export default function Layout() {
             <TabBar.Item key={item.key} icon={item.icon} title={item.title} />
           ))}
         </TabBar>
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -2,7 +2,7 @@
   "private": true,
   "author": "liujf <317558348@qq.com>",
   "scripts": {
-    "dev": "umi dev",
+    "dev": "cross-env HOST=0.0.0.0 PORT=8002 umi dev --https",
     "build": "umi build",
     "postinstall": "umi setup",
     "setup": "umi setup",
@@ -20,6 +20,7 @@
     "@umijs/plugins": "^4.4.10",
     "ahooks": "^3.8.4",
     "antd-mobile": "^5.39.0",
+    "cross-env": "^7.0.3",
     "postcss-px-to-viewport": "^1.1.1",
     "typescript": "^5.0.3"
   }

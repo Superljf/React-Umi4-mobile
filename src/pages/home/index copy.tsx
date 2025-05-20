@@ -3,7 +3,7 @@ import { Button, Space, Toast, DotLoading, ErrorBlock } from 'antd-mobile';
 import { useRequest } from 'ahooks';
 import { getHello, getLoginTeacherInfo, getSurveyList } from '@/services/api';
 import styles from './index.less';
-import { useModel, useNavigate } from 'umi';
+import { useModel, useNavigate, Helmet } from 'umi';
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
@@ -28,12 +28,25 @@ const HomePage: React.FC = () => {
   });
   console.log('🚀 ~ surveyList:', surveyList);
 
+  const { data, loading, error } = useRequest(() =>
+    getSurveyList({ pageNum: 1, pageSize: 10 })
+  );
+
+  async function fetchData() {
+    try {
+      const res = await getSurveyList({ pageNum: 1, pageSize: 10 });
+      // 处理数据
+      console.log('数据：', res);
+      Toast.show({ content: '获取成功' });
+    } catch (err: any) {
+      // 捕获并处理错误
+      Toast.show({ content: err.message || '获取失败' });
+    }
+  }
+
   // 调用方式
   useEffect(() => {
-    fetchSurveyList({
-      pageSize: 10,
-      pageNum: 1,
-    });
+    fetchData();
   }, []);
 
   const handleClick = async () => {
@@ -80,6 +93,9 @@ const HomePage: React.FC = () => {
 
   return (
     <div className={styles.container}>
+      <Helmet>
+        <title>快乐学习</title>
+      </Helmet>
       <div className={styles.content}>
         {userInfo && <div>欢迎, {userInfo.name}</div>}
 
@@ -101,10 +117,7 @@ const HomePage: React.FC = () => {
           >
             刷新所有数据
           </Button>
-          <Button
-            color='default'
-            onClick={() => navigate('/volunteer')}
-          >
+          <Button color='default' onClick={() => navigate('/volunteer')}>
             进入志愿填报模拟页面
           </Button>
         </Space>

@@ -70,3 +70,47 @@ npm run build
 ---
 
 如需更详细的说明或补充内容，请告知你的具体需求！
+
+
+## 请求接口的方式
+```
+import { useRequest } from 'ahooks';
+import { getSurveyList } from '@/services/api';
+import { Toast } from 'antd-mobile';
+
+export default function SurveyPage() {
+  const { data, error, loading, run } = useRequest(
+    (params) => getSurveyList(params),
+    {
+      manual: true,
+      onError: (err) => {
+        Toast.show({ content: err.message || '获取数据失败' });
+      },
+    }
+  );
+
+  return (
+    <div>
+      <button onClick={() => run({ pageNum: 1, pageSize: 10 })}>获取数据</button>
+      {loading && <div>加载中...</div>}
+      {error && <div style={{ color: 'red' }}>出错了：{error.message}</div>}
+      {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
+    </div>
+  );
+}
+
+
+//第二种
+  async function fetchData() {
+    try {
+      const res = await getSurveyList({ pageNum: 1, pageSize: 10 });
+      // 处理数据
+      console.log('数据：', res);
+      Toast.show({ content: '获取成功' });
+    } catch (err: any) {
+      // 捕获并处理错误
+      Toast.show({ content: err.message || '获取失败' });
+    }
+  }
+
+  ```

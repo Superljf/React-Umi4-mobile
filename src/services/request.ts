@@ -49,13 +49,9 @@ request.interceptors.request.use((url, options) => {
   const headers = {
     ...options.headers,
   };
-
-
-  let testToken = "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyX3R5cGUiOiIwIiwidXNlcl9pZCI6MSwibG9naW5fdHlwZSI6IkxpbmtXZUNoYXRBUEkiLCJ1c2VyX25hbWUiOiJhZG1pbiIsInVzZXJfa2V5IjoiZTM0OTM1NmMtOGZiZi00ZmI1LTlkODktNzJjODI1ZjU5OTI5IiwiY29ycF9uYW1lIjoi5b-r5LmQ5pif6L6wIiwiY29ycF9pZCI6Ind3M2RmZTc4NTk5Y2UyN2M4ZSJ9.mhZHhxB45JL8TDrOPLLjk63vbQBMFZPM3BnYL4WeiscHDr9dM65rGnC54gHE9n4VSy74uwWwrUtRuheP4zklWA"
-  headers.Authorization = `Bearer ${testToken}`
-  // if (token) { 
-  //   headers.Authorization = `Bearer ${token}`;
-  // }
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
 
   return {
     url,
@@ -65,18 +61,35 @@ request.interceptors.request.use((url, options) => {
 
 // 响应拦截器
 request.interceptors.response.use(async (response) => {
-  // 先克隆响应防止多次读取
   const res = await response.clone().json();
-  console.log("🚀 ~ request.interceptors.response.use ~ res:", res)
+
+  // 401 处理 - 放在最前面
+  if (res.code === 401) {
+    // localStorage.removeItem('token');
+    // Toast.show({
+    //   content: '登录已过期，请重新登录',
+    // });
+    // setTimeout(() => {
+    //   window.location.href = '/login';
+    // }, 1000);
+    // // 抛出特定的错误类型，会被全局 unhandledrejection 捕获
+    // const authError = new Error('未登录或登录已过期');
+    // authError.name = 'AuthError';
+    // authError.info = res;
+    // setTimeout(() => {
+    //   throw authError;  // 使用 setTimeout 确保错误被全局捕获
+    // }, 0);
+    // 返回一个永远pending的Promise，阻止后续代码执行
+    // return new Promise(() => { });
+  }
 
   // 成功逻辑
   if (res.code === 0 || res.code === 200) {
-
-    return res.data || res; // ✅ resolve 成功数据（业务层的 data）
+    return res.data || res;
   }
 
-  // 错误逻辑
-  const error = new Error(res.message || '请求失败');
+  // 其他业务错误逻辑
+  const error = new Error(res?.message || res?.msg || '请求失败');
   error.name = 'BusinessError';
   error.info = res;
   error.response = response;
@@ -85,12 +98,8 @@ request.interceptors.response.use(async (response) => {
     content: res.message || '请求失败',
     position: 'bottom',
   });
-  if (res.code === 401) {
-    localStorage.removeItem('token');
-    // 可加跳转：window.location.href = '/login';
-  }
 
-  throw error; // ✅ 使用 throw 代替 Promise.reject 确保错误被捕获
+  throw error;
 });
 
 export default request;

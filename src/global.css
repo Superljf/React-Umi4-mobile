@@ -1,0 +1,95 @@
+:root:root {
+    --adm-color-primary: #E70027;
+    --adm-color-success: #00b578;
+    --adm-color-warning: #ff8f1f;
+    --adm-color-danger: #ff3141;
+    --font-size-main: 16px;
+
+    --adm-color-white: #ffffff;
+    --adm-color-text: #333333;
+    --adm-color-text-secondary: #666666;
+    --adm-color-weak: #999999;
+    --adm-color-light: #cccccc;
+    --adm-color-border: #eeeeee;
+    --adm-color-box: #f5f5f5;
+    --adm-color-background: #ffffff;
+
+    --adm-font-size-7: 15px;
+    --adm-font-size-8: 15px;
+    --adm-font-size-9: 15px;
+
+    --adm-color-danger: #E70027;
+
+
+    --adm-font-size-main: var(--adm-font-size-5);
+
+    --adm-font-family: -apple-system, blinkmacsystemfont, 'Helvetica Neue',
+        helvetica, segoe ui, arial, roboto, 'PingFang SC', 'miui',
+        'Hiragino Sans GB', 'Microsoft Yahei', sans-serif;
+
+    .adm-form {
+        --border-top: none;
+        --border-bottom: none;
+    }
+
+    .adm-list-item-content {
+        --border-top: none;
+        --border-bottom: none;
+    }
+
+    .adm-form-item.adm-form-item-vertical .adm-form-item-label {
+        margin-bottom: 8px;
+        color: #333333;
+    }
+}
+
+
+body {
+    margin: 0px !important;
+    max-width: 750px;
+    margin: 0 auto !important;
+    background-color: #f5f5f5;
+}
+
+@media screen and (min-width: 750px) {
+    body {
+        background-color: #f5f5f5;
+    }
+
+    #root {
+        position: relative;
+        margin: 0 auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        min-height: 100vh;
+        background-color: #fff;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    body {
+        width: 100%;
+    }
+}
+
+@supports (padding-top: constant(safe-area-inset-top)) or (padding-top: env(safe-area-inset-top)) {
+    body {
+        padding-top: constant(safe-area-inset-top);
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: constant(safe-area-inset-bottom);
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+}
+
+@viewport {
+    width: device-width;
+    user-zoom: fixed;
+    max-zoom: 1;
+    min-zoom: 1;
+}
+
+@media screen and (min-width: 750px) {
+    #root {
+        /* transform: scale(0.5, 0.5);
+        transform-origin: 50% 0; */
+    }
+}

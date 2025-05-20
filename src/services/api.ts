@@ -44,3 +44,19 @@ export async function getSurveyList(params?: object) {
     params,
   }));
 }
+
+
+// 提交调查问卷
+export async function submitSurvey(params: object) {
+  return requestWrapper(request<ResponseData>('/api/wx-api/form/h5/add', {
+    method: 'POST',
+    data: params,
+  }));
+}
+
+
+export const getSmsCode = (phone: string, formId: string) => {
+  return requestWrapper(request<ResponseData>(`/api/auth/anwer/getSmsCode/${phone}/${formId}`, {
+    method: 'POST',
+  }));
+};
